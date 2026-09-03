@@ -1,0 +1,14 @@
+Recomputed from the saved per-trade tables with run.py's rules (2026 holdout never opened).
+
+H1 pin condor (long-gamma days, 2024): n=46 mean_R=+0.048 mean_$=+113.8 win%=72 t_vs_zero=2.97 by_quarter={1: 0.078, 2: 0.03, 3: -0.008, 4: 0.085}
+    control [short-gamma days]: n=38 mean_R=+0.041 t(primary vs control)=0.25
+    verdict: FAIL (needs mean_R>0, t_vs_zero>2, t_vs_control>2, not one-quarter-only)
+
+H2 trend buy (short-gamma days, 2024): n=18 mean_R=-0.126 mean_$=-76.4 win%=39 t_vs_zero=-0.83 by_quarter={1: -0.542, 2: -0.175, 3: -0.165, 4: 0.159}
+    control [long-gamma days]: n=31 mean_R=+0.488 t(primary vs control)=-1.45
+    verdict: FAIL (needs mean_R>0, t_vs_zero>2, t_vs_control>2, not one-quarter-only)
+
+H3 regime + order flow (short-gamma days, 2025): n=31 mean_R=+0.321 mean_$=+307.2 win%=45 t_vs_zero=1.18 by_quarter={2: -0.323, 3: 0.299, 4: 0.614}
+    control [regime-blind]: n=113 mean_R=+0.063 t(primary vs control)=0.88
+    control [long-gamma days]: n=82 mean_R=-0.034 t(primary vs control)=1.21
+    verdict: FAIL (needs mean_R>0, t_vs_zero>2, t_vs_control>2, not one-quarter-only)

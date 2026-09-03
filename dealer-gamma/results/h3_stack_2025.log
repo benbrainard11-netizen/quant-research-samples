@@ -1,0 +1,14 @@
+==================================================================
+gamma_0dte_v0 H3 full stack — 2025 TRAIN (2026 sealed)
+==================================================================
+
+Orderflow pre-check: trigger sign predicts next 30min direction 44.5% (n=110); 50% = no edge
+
+### H3 (trend + orderflow + 0DTE)
+  n=31  mean_r=+0.321  mean_$=+307.2  win%=45  t_vs_zero=1.18
+  regime-blind control n=113  mean_r=+0.063  t(primary vs blind)=0.88
+  pin-day control n=82  mean_r=-0.034  t(primary vs pin)=1.21
+  by_quarter_r={2: -0.323, 3: +0.299, 4: +0.614}
+  >>> FAIL
+
+==================================================================
