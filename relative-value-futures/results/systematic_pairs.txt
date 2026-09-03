@@ -1,0 +1,26 @@
+scanning 325 pairs over 1981 days; IS<2023, OOS>=2023
+
+** generalization: corr(in-sample Sharpe, OOS Sharpe) across 325 pairs = +0.119 **
+   (>0 => picking pairs on in-sample history carries OOS; ~0 => it's noise)
+
+  top 12 pairs by IN-SAMPLE Sharpe -> their OOS:
+  pair             IS_Sh  OOS_Sh
+  6S/GC             1.06   -0.49
+  6N/HG             1.03   -0.30
+  6J/ZC             1.03   -0.11
+  6B/HG             1.02   -0.84
+  ES/6C             0.97    0.35
+  YM/6C             0.95    0.10
+  6A/HG             0.93    0.41
+  NG/ZN             0.90    0.22
+  ZB/ZT             0.87    0.74
+  6S/SI             0.83    0.20
+  6B/ZC             0.80    0.44
+  6J/ZS             0.77   -0.07
+
+  selection test (rank by IS only, measure book OOS, equal-weight):
+   top-10 by IS:  book OOS Sharpe = +0.23
+   top-20 by IS:  book OOS Sharpe = -0.15
+   top-40 by IS:  book OOS Sharpe = -0.20
+   all 325 pairs: book OOS Sharpe = +0.17
+   pairs net-positive OOS: 186/325

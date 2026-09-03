@@ -1,0 +1,18 @@
+panel (1981, 26)  pairs=12  (hedge 250d, z 60d, cost 2bps/leg)
+
+  pair                gross_Sh   net_Sh  OOS_net_Sh
+  ES/NQ                  -0.25    -0.36       -0.81
+  ES/YM                  -0.96    -1.10       -1.76
+  NQ/RTY                 -0.82    -0.90       -1.16
+  ZT/ZF                   0.67    -0.75       -0.21
+  ZF/ZN                   1.23     0.59        1.00
+  ZN/ZB                   0.72     0.23        0.12
+  CL/BZ                   0.63     0.57        1.57
+  HO/RB                  -0.19    -0.25       -0.52
+  CL/HO                   0.31     0.26        0.44
+  GC/SI                   0.53     0.43        0.60
+  6E/6B                   0.70     0.33        0.52
+  6A/6C                   0.53     0.25        0.29
+
+  diversified pairs book: net Sharpe full=+0.12  OOS=-0.02
+  positive-net pairs: 7/12

@@ -1,0 +1,16 @@
+
+=== CL/BZ: OOS Sharpe across (BETAWIN x ZWIN), 2bp cost ===
+  ZWIN ->       30      60      90
+  BETA  120   +1.61   +1.68   +1.54
+  BETA  250   +1.71   +1.57   +1.44
+  BETA  375   +1.79   +1.71   +1.71
+  -> all 9 cells: min +1.44  median +1.68  max +1.79  positive 100%
+  cost stress (BETAWIN=250, ZWIN=60): 0bp:+1.73  1bp:+1.65  2bp:+1.57  4bp:+1.41  8bp:+1.09
+
+=== FULL BOOK (5 pairs): OOS Sharpe across (BETAWIN x ZWIN), 2bp cost ===
+  ZWIN ->       30      60      90
+  BETA  120   +1.75   +1.73   +1.60
+  BETA  250   +1.05   +0.93   +0.74
+  BETA  375   +1.02   +1.09   +0.88
+  -> all 9 cells: min +0.74  median +1.05  max +1.75  positive 100%
+  cost stress (BETAWIN=250, ZWIN=60): 0bp:+1.07  1bp:+1.00  2bp:+0.93  4bp:+0.79  8bp:+0.51

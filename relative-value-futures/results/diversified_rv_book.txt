@@ -1,0 +1,13 @@
+daily_returns 1981 days 2018-05-02..2026-04-23  OOS split 2023-01-01, 2.0bp/leg
+
+complex    #pairs  full Sh  OOS Sh    CAGR   maxDD
+energy          5     0.68    0.93  12.2%   -0.34
+grains          3     0.83    1.10   9.6%   -0.15
+curve           3     0.44    0.82   0.5%   -0.03
+metals          1     0.43    0.60   5.6%   -0.25
+
+  ENERGY ONLY        full Sh +0.68 | OOS Sh +0.93 | CAGR +12.2% | maxDD -0.34
+  ALL pairs eq-wt    full Sh +0.97 | OOS Sh +1.46 | CAGR +8.1% | maxDD -0.16
+  by-COMPLEX eq-wt   full Sh +1.08 | OOS Sh +1.44 | CAGR +7.0% | maxDD -0.14
+
+VERDICT: energy-only OOS +0.93 vs diversified +1.46 -> diversification ADDS value, build the multi-complex bot.

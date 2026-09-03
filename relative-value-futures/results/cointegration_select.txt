@@ -1,0 +1,25 @@
+pairs with valid ADF: 325
+
+** corr(ADF t-stat, OOS Sharpe)   = -0.163  (more-negative ADF should -> higher OOS, so expect NEGATIVE)
+   corr(in-sample Sh, OOS Sharpe) = +0.119  (the failed Sharpe-selection baseline)
+
+  STRUCTURAL selection (in-sample, no lookahead):
+   ADF<-3.34 cointegrated (16 pairs):          book OOS Sharpe = +0.46
+   + half-life 5-60d (16 pairs):              book OOS Sharpe = +0.46
+   top-10 most-cointegrated (by ADF):          book OOS Sharpe = +0.49
+   top-20 most-cointegrated (by ADF):          book OOS Sharpe = +0.31
+
+  top 12 most-cointegrated pairs (in-sample ADF) -> OOS:
+  pair               ADF half-life  OOS_Sh
+  CL/BZ            -7.75       6.9    1.57
+  CL/RB            -7.24       7.9    0.58
+  BZ/RB            -4.67      18.5    0.39
+  CL/HO            -4.65      18.2    0.44
+  YM/HG            -4.60      21.1   -0.50
+  6S/SI            -4.58      19.4    0.20
+  ES/HG            -3.91      31.0   -0.43
+  YM/ZS            -3.91      28.9    0.05
+  6B/6N            -3.90      25.5   -0.56
+  RTY/6C           -3.89      26.5    0.27
+  CL/NG            -3.81      28.0   -0.12
+  RTY/HG           -3.67      29.3   -0.02
