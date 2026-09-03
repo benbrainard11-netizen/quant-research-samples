@@ -47,7 +47,7 @@ LGBM = dict(n_estimators=300, num_leaves=31, learning_rate=0.05, min_child_sampl
             verbose=-1, n_jobs=1, deterministic=True, force_row_wise=True)
 ENS_SEEDS = list(range(10))
 AUG = BASE_FEATS + SWEEP_FEATS
-N_FLOOR = 500          # capacity-floor permutations (GPT major: 200->500 for a stabler 97.5pct)
+N_FLOOR = 500          # capacity-floor permutations (review: 200->500 for a stabler 97.5pct)
 N_SHUF = 1000
 B_BOOT = 2000
 OOS_END = 20260609
@@ -142,7 +142,7 @@ def evaluate(tr: pd.DataFrame, ev: pd.DataFrame, with_ablation: bool = True) -> 
 
 
 def _verify_hash(par: dict) -> None:
-    """GPT M1: refuse the OOS read if params.json was edited after finalize (hash IS the pre-registration)."""
+    """Refuse the OOS read if params.json was edited after finalize (hash IS the pre-registration)."""
     d = {k: v for k, v in par.items() if k != "sha256"}
     h = hashlib.sha256(json.dumps(d, sort_keys=True, separators=(",", ":")).encode()).hexdigest()
     if h != par.get("sha256"):
@@ -150,9 +150,9 @@ def _verify_hash(par: dict) -> None:
 
 
 def verdict(r: dict, mde: float, cov_floor_days: int) -> str:
-    if r["days"] < cov_floor_days:                                     # GPT M3: underpowered by coverage
+    if r["days"] < cov_floor_days:                                     # coverage floor: underpowered
         return "INCONCLUSIVE"
-    if (r["aug_ric"] > 0 and r["ci_lo"] > 0 and r["delta"] >= mde      # aug must be a real forecast (GPT B2)
+    if (r["aug_ric"] > 0 and r["ci_lo"] > 0 and r["delta"] >= mde      # aug must be a real forecast (review B2)
             and r["delta"] > r["capacity_floor_p975"] and r["delta"] > r["within_day_shuffle_p975"]
             and (r["day_balanced"] > 0) and min(r["halves"]) >= 0):
         return "PULSE"
@@ -181,7 +181,7 @@ def _spec(design_feas: dict, mde_frozen: float, cov_floor_days: int, design_eval
         "primary_statistic": "Δ = rankIC(p_aug,y) - rankIC(p_base,y), paired day-block bootstrap",
         "mde_frozen": mde_frozen,
         "design_eval_days": design_eval_days, "oos_days_est": OOS_DAYS_EST, "coverage_floor_days": cov_floor_days,
-        "mde_frozen_note": f"GPT M2/M3: mde_frozen = design-eval MDE95 ({design_feas['mde95']:.4f}) × "
+        "mde_frozen_note": f"mde_frozen = design-eval MDE95 ({design_feas['mde95']:.4f}) × "
                            f"√(design_eval_days {design_eval_days} / oos_days_est {OOS_DAYS_EST}) — OOS-day-scaled, "
                            "FROZEN pre-OOS. At read time it is WIDENED further by √(oos_days_est/actual_oos_days) "
                            f"if OOS has fewer days. coverage_floor_days={cov_floor_days} → INCONCLUSIVE-by-power below it.",
@@ -212,8 +212,8 @@ def run_design(quick: int | None = None) -> None:
     days = np.sort(df["et_date"].unique()); cut = days[len(days) // 2]
     tr = df[df["et_date"] < cut]; ev = df[df["et_date"] >= cut]
     r = evaluate(tr, ev)
-    mde_frozen = round(r["mde95"] * (r["days"] / OOS_DAYS_EST) ** 0.5, 4)   # GPT M2: OOS-day-scale the design-eval MDE
-    cov_floor = round(0.7 * OOS_DAYS_EST)                                    # GPT M3: coverage floor (days)
+    mde_frozen = round(r["mde95"] * (r["days"] / OOS_DAYS_EST) ** 0.5, 4)   # OOS-day-scale the design-eval MDE
+    cov_floor = round(0.7 * OOS_DAYS_EST)                                    # coverage floor (days)
     par = _spec(r, mde_frozen, cov_floor, r["days"])
     blob = json.dumps(par, sort_keys=True, separators=(",", ":")).encode()
     par["sha256"] = hashlib.sha256(blob).hexdigest()
@@ -249,13 +249,13 @@ def list_oos_dates() -> list[int]:
 def run_oos() -> None:
     pf = OUT_DIR / "params_candidate_v3.json"
     par = json.loads(pf.read_text(encoding="utf-8"))
-    _verify_hash(par)                                                 # GPT M1: refuse if params tampered
+    _verify_hash(par)                                                 # refuse if params tampered
     print(f"LOCKED OOS READ — params sha256 {par['sha256']} (verified), mde_frozen {par['mde_frozen']}")
     tr = collect_window(list_design_dates(DESIGN_START, DESIGN_END))   # fit on FULL DESIGN
     ev = collect_window(list_oos_dates())                              # the sealed OOS — read ONCE
     r = evaluate(tr, ev, with_ablation=False)                          # NO per-feature ablation on OOS (firewall)
     est = par["oos_days_est"]
-    mde_eff = round(par["mde_frozen"] * (est / min(r["days"], est)) ** 0.5, 4)   # GPT M2: widen if OOS has fewer days
+    mde_eff = round(par["mde_frozen"] * (est / min(r["days"], est)) ** 0.5, 4)   # widen if OOS has fewer days
     v = verdict(r, mde_eff, par["coverage_floor_days"])
     L = [f"# v3.1 OOS VERDICT = {v}\n",                                # firewall: ONLY these fields emitted on OOS
          f"- base_rankIC {r['base_ric']:+.4f} | aug_rankIC {r['aug_ric']:+.4f} | **Δ rank-IC {r['delta']:+.4f}**",
@@ -277,7 +277,7 @@ def main(argv=None) -> int:
     a = p.parse_args(argv)
     if a.oos:
         if not a.confirm_locked:
-            print("REFUSED: --oos requires --confirm-locked (the sealed OOS is spent ONCE, only after Ben locks).")
+            print("REFUSED: --oos requires --confirm-locked (the sealed OOS is spent ONCE, only after the lock).")
             return 2
         run_oos()
     else:

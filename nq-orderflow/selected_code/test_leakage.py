@@ -99,7 +99,7 @@ def test_target_does_read_post_tstar():
 
 
 def test_same_timestamp_after_tstar_no_feature_leak():
-    """GPT Blocker-3: a record sharing t*'s timestamp but AFTER it (index e+1) must NOT enter features, and
+    """Review blocker 3: a record sharing t*'s timestamp but AFTER it (index e+1) must NOT enter features, and
     the resolver MUST treat it as post-t* (record-index boundary, not timestamp-only)."""
     done = 0
     for s, e, p1, sg in _RUNS:

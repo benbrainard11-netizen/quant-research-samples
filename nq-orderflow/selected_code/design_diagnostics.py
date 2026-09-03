@@ -308,7 +308,7 @@ def _emit(df, drops, usable, event_days, qualifying, nonfin, n_dates):
           f"- MDE95 (eval-window) {mde['mde95_eval']:.4f} | **MDE95 scaled to OOS ~{mde['n_oos_days_est']}d "
           f"{mde['mde95_oos_scaled']:.4f}** | 2.5th-pctile {mde['ci_lo_pctile_eval']:+.4f} | B={mde['B']}",
           f"\nparams_candidate.json sha256: `{par['sha256']}`",
-          "\n_For GPT/Ben lock review. Not locked. Run did not read OOS._"]
+          "\n_For lock review. Not locked. Run did not read OOS._"]
     (OUT_DIR / "DESIGN_DIAGNOSTICS.md").write_text("\n".join(L), encoding="utf-8")
     print("\n".join(L))
 
